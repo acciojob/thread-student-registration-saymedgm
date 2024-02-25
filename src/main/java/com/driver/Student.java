@@ -10,12 +10,17 @@ public class Student implements Runnable {
     }
 
     public String getName() {
-    	//your code goes here
         return name;
     }
 
     @Override
     public void run() {
-    	//your code goes here
+        for (Course course : courses) {
+            boolean registered = course.registerStudent(this);
+            if (!registered) {
+                // If not registered, student might be added to waiting list.
+                course.processWaitingList();
+            }
+        }
     }
 }

@@ -41,4 +41,3 @@ public class RegistrationSystem {
         System.out.println("History Course - Available Seats: " + historyCourse.getAvailableSeats());
     }
 }
-

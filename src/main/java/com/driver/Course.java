@@ -14,20 +14,30 @@ public class Course {
     }
 
     public String getCourseCode() {
-    	//your code goes here
         return courseCode;
     }
 
     public synchronized boolean registerStudent(Student student) {
-    	//your code goes here
+        if (availableSeats > 0) {
+            availableSeats--;
+            System.out.println(student.getName() + " registered for " + courseCode);
+            return true;
+        } else {
+            waitingList.offer(student);
+            System.out.println(student.getName() + " added to the waiting list for " + courseCode);
+            return false;
+        }
     }
 
     public synchronized void processWaitingList() {
-    	//your code goes here
+        while (!waitingList.isEmpty() && availableSeats > 0) {
+            Student student = waitingList.poll();
+            availableSeats--;
+            System.out.println(student.getName() + " registered from waiting list for " + courseCode);
+        }
     }
 
     public synchronized int getAvailableSeats() {
-    	//your code goes here
         return availableSeats;
     }
 }
